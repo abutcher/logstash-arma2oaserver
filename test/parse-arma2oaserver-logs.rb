@@ -13,7 +13,7 @@ filter {
 filter {
   grok{
     pattern => '%{TIME} "HIVE: WRITE: "CHILD:%{NUMBER:child_number}:"%{NUMBER}":%{LIST:loot}:%{NUMBER}"'
-    patterns_dir => ['/home/abutcher/Desktop/patterns/arma-patterns']
+    patterns_dir => ['./patterns/arma-patterns']
     singles => true
     named_captures_only => true
   }

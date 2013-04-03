@@ -6,16 +6,9 @@ describe "arma2oaserver RPT log format" do
   config <<-CONFIG
 filter {
   grok {
-    pattern => '%{TIME} "CRASHSPAWNER: %{NUMBER:spawn_chance}% chance to spawn %{QS:crash_type} with loot table %{QS:loot_table} at %{NUMBER:location}"'
+    pattern => '%{ARMA2OA}'
+    patterns_dir => ['./patterns']
     singles => true
-  }
-}
-filter {
-  grok{
-    pattern => '%{TIME} "HIVE: WRITE: "CHILD:%{NUMBER:child_number}:"%{NUMBER}":%{LIST:loot}:%{NUMBER}"'
-    patterns_dir => ['./patterns/arma-patterns']
-    singles => true
-    named_captures_only => true
   }
 }
 CONFIG
@@ -50,8 +43,8 @@ CONFIG
     insist { subject }.include?("child_number")
     insist { subject }.include?("loot")
 
-    insist { subject["child_number"] } == "303"
     insist { subject["loot"] } == '[[["Remington870_lamp","Makarov"],[1,1]],[["ItemJerrycan","30Rnd_556x45_Stanag","10x_303","15Rnd_9x19_M9","FoodCanBakedBeans","ItemSodaCoke","ItemPainkiller","ItemMorphine","FoodCanFrankBeans","ItemTankTrap","ItemSodaPepsi","ItemWaterbottleUnfilled"],[1,2,4,4,2,3,1,1,1,1,2,1]],[[],[]]]'
+    insist { subject["child_number"] } == "303"
   end
 
 end

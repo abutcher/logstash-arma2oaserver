@@ -1,1 +1,4 @@
-LIST \[.*\]
+LIST \[%{GREEDYDATA}\]
+CRASHSPAWN %{TIME} \"CRASHSPAWNER\: %{NUMBER:spawn_chance}\% chance to spawn %{QS:crash_type} with loot table %{QS:loot_table} at %{NUMBER:location}\"
+LOOTSPAWN (%{TIME} \"HIVE\: WRITE\: \"CHILD\:%{NUMBER:child_number}\:\"%{NUMBER}\"\:%{LIST:loot}):?\"?\"?
+ARMA2OA %{CRASHSPAWN}|%{LOOTSPAWN}
